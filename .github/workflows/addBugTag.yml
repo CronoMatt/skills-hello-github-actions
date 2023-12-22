@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - name: Check for Bug Report Template
-      if: contains(github.event.issue.body, 'the bug')
+      if: contains(github.event.issue.body, '**Describe the bug**')
       run: |
         echo "Bug report template detected."
         LABELS=$(jq -c -n '[{ "labels": ["bug"] }]')
