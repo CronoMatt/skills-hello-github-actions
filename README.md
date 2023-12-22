@@ -1,5 +1,7 @@
 <header>
-
+:smile:_
+  :smile:_
+  :smile:_
 <!--
   <<< Author notes: Course header >>>
   Include a 1280x640 image, course title in sentence case, and a concise description in emphasis.
