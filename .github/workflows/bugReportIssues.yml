@@ -18,6 +18,6 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
           const issue = context.payload.issue;
-          const assignees = ['<USERNAME OR TEAM>']; // Replace with the username or team to assign
+          const assignees = ['CronoMatt']; // Replace with the username or team to assign
           await github.issues.addAssignees({ issue_number: issue.number, owner: context.repo.owner, repo: context.repo.repo, assignees: assignees });
           console.log(`Assigned ${issue.html_url} to ${assignees.join(', ')}`);
