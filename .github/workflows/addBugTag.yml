@@ -1,0 +1,19 @@
+name: Auto-assign Bug Label
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  auto_assign_bug_label:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check for Bug Report Template
+      if: contains(github.event.issue.body, 'the bug')
+      run: |
+        echo "Bug report template detected."
+        LABELS=$(jq -c -n '[{ "labels": ["bug"] }]')
+        NUMBER=$(jq --raw-output '.issue.number' "$GITHUB_EVENT_PATH")
+        URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/issues/${NUMBER}/labels"
+        curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -d "${LABELS}" "${URL}"
