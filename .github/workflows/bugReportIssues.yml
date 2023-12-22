@@ -1,0 +1,23 @@
+name: Bug Report Workflow
+
+on:
+  issues:
+    types: [opened, edited]
+    labels:
+      - bug
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Assign to Developer
+      if: github.event.action == 'opened' || contains(github.event.changes.labels.*.name, 'bug')
+      uses: actions/github-script@v5
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const issue = context.payload.issue;
+          const assignees = ['<USERNAME OR TEAM>']; // Replace with the username or team to assign
+          await github.issues.addAssignees({ issue_number: issue.number, owner: context.repo.owner, repo: context.repo.repo, assignees: assignees });
+          console.log(`Assigned ${issue.html_url} to ${assignees.join(', ')}`);
